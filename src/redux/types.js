@@ -1,0 +1,4 @@
+export const FETCH_HOTELS = "FETCH_HOTELS";
+export const UPDATE_SEARCH = "UPDATE_SEARCH";
+export const FETCH_HOTELS_ERROR = "FETCH_HOTELS_ERROR";
+export const SET_LOADING = "SET_LOADING";
