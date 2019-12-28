@@ -1,4 +1,5 @@
 import { getHotels, getCoordinates } from "../api/api";
+import { weatherKey } from "../api/config";
 import * as types from "./types";
 
 const hotelsUpdate = payload => {
@@ -27,6 +28,27 @@ export const fetchHotels = (city, dates) => async dispatch => {
   } catch (err) {
     dispatch({
       type: types.FETCH_HOTELS_ERROR,
+      payload: err
+    });
+  }
+};
+
+export const fetchWeather = city => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/find?q=${city}&units=metric&appid=${weatherKey}`
+    );
+
+    const data = await response.json();
+    const temperature = Math.floor(data.list[0].main.temp);
+
+    dispatch({
+      type: types.FETCH_WEATHER,
+      payload: temperature
+    });
+  } catch (err) {
+    dispatch({
+      type: types.FETCH_WEATHER_ERROR,
       payload: err
     });
   }

@@ -2,12 +2,20 @@ import React, { createContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import HotelsList from "./pages/HotelsList";
-import { fetchHotels } from "./redux/actions";
+import { fetchHotels, fetchWeather } from "./redux/actions";
 import { connect } from "react-redux";
 import Spinner from "./components/Spinner";
 export const AppContext = createContext();
 
-export const App = ({ hotels, dates, city, loading, fetchHotels }) => {
+export const App = ({
+  hotels,
+  dates,
+  city,
+  loading,
+  fetchHotels,
+  fetchWeather,
+  temperature
+}) => {
   if (loading) return <Spinner />;
   return (
     <Router>
@@ -15,8 +23,10 @@ export const App = ({ hotels, dates, city, loading, fetchHotels }) => {
         value={{
           hotels,
           fetchHotels,
+          fetchWeather,
           dates,
-          city
+          city,
+          temperature
         }}
       >
         <header className="d-flex justify-content-center mt-2">
@@ -38,12 +48,14 @@ const mapStateToProps = state => {
     hotels: state.hotels,
     city: state.city,
     dates: state.dates,
-    loading: state.loading
+    loading: state.loading,
+    temperature: state.temperature
   };
 };
 
 const mapDispatchToProps = {
-  fetchHotels
+  fetchHotels,
+  fetchWeather
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

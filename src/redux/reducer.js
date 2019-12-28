@@ -4,7 +4,8 @@ const initialState = {
   hotels: [],
   city: "",
   dates: [new Date(), new Date()],
-  loading: false
+  loading: false,
+  temperature: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload
+      };
+    case types.FETCH_WEATHER:
+      return {
+        ...state,
+        temperature: action.payload
       };
     case types.SET_LOADING:
       return {
